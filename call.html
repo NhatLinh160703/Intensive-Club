@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lịch Gọi Điện Tháng 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1117;
+    --surface: #181C27;
+    --border: #262B3A;
+    --w1: #FF7B54;
+    --w2: #54C5EB;
+    --w3: #A78BFA;
+    --text: #F0EDE8;
+    --muted: #6B7280;
+    --row-hover: #1E2233;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .container { max-width: 940px; margin: 0 auto; }
+
+  header {
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .title-block h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .title-block p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+
+  .badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    border: 1px solid;
+  }
+
+  .badge-w1 { color: var(--w1); border-color: var(--w1); background: rgba(255,123,84,0.08); }
+  .badge-w2 { color: var(--w2); border-color: var(--w2); background: rgba(84,197,235,0.08); }
+  .badge-w3 { color: var(--w3); border-color: var(--w3); background: rgba(167,139,250,0.08); }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  thead tr {
+    background: #12151F;
+  }
+
+  th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  th:first-child { border-radius: 0; width: 52px; text-align: center; }
+  th.w1 { color: var(--w1); }
+  th.w2 { color: var(--w2); }
+  th.w3 { color: var(--w3); }
+
+  tbody tr {
+    transition: background 0.15s;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--row-hover); }
+
+  td {
+    padding: 1rem 1.25rem;
+    font-size: 1.0rem;
+    vertical-align: middle;
+  }
+
+  td:first-child {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    width: 52px;
+  }
+
+  .pair-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .name {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .arrow {
+    font-size: 0.75rem;
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 300;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="title-block">
+      <h1>Lịch Gọi Điện<br>Tháng 5 · 2025</h1>
+      <p>📞 &nbsp;Mỗi cặp gọi 1 lần/tuần · 16 thành viên · 3 tuần</p>
+    </div>
+    <div class="badges">
+      <span class="badge badge-w1">11–17/5 Tuần 1</span>
+      <span class="badge badge-w2">18–24/5 Tuần 2</span>
+      <span class="badge badge-w3">25–31/5 Tuần 3</span>
+    </div>
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th class="w1">⬤ &nbsp;Tuần 1 &nbsp;·&nbsp; 11–17/5</th>
+        <th class="w2">⬤ &nbsp;Tuần 2 &nbsp;·&nbsp; 18–24/5</th>
+        <th class="w3">⬤ &nbsp;Tuần 3 &nbsp;·&nbsp; 25–31/5</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><div class="pair-cell"><span class="name">Cao Sỹ Tiến</span><span class="arrow">↔</span><span class="name">Sầm Văn Hòa</span></div></td>
+        <td><div class="pair-cell"><span class="name">Cao Sỹ Tiến</span><span class="arrow">↔</span><span class="name">Nguyễn Phượng</span></div></td>
+        <td><div class="pair-cell"><span class="name">Cao Sỹ Tiến</span><span class="arrow">↔</span><span class="name">Liễu anbinh</span></div></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><div class="pair-cell"><span class="name">Nhật Linh</span><span class="arrow">↔</span><span class="name">Phạm Khánh Hòa</span></div></td>
+        <td><div class="pair-cell"><span class="name">Nhật Linh</span><span class="arrow">↔</span><span class="name">Vũ Văn Thịnh</span></div></td>
+        <td><div class="pair-cell"><span class="name">Nhật Linh</span><span class="arrow">↔</span><span class="name">Trang Chung</span></div></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><div class="pair-cell"><span class="name">Trang Chung</span><span class="arrow">↔</span><span class="name">Tiểu Phàm</span></div></td>
+        <td><div class="pair-cell"><span class="name">Sầm Văn Hòa</span><span class="arrow">↔</span><span class="name">Liễu anbinh</span></div></td>
+        <td><div class="pair-cell"><span class="name">Sầm Văn Hòa</span><span class="arrow">↔</span><span class="name">Thu Hà</span></div></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><div class="pair-cell"><span class="name">Hiền Phùng</span><span class="arrow">↔</span><span class="name">Lê Oanh</span></div></td>
+        <td><div class="pair-cell"><span class="name">Trang Chung</span><span class="arrow">↔</span><span class="name">Thục Oanh</span></div></td>
+        <td><div class="pair-cell"><span class="name">Hiền Phùng</span><span class="arrow">↔</span><span class="name">Phùng Thị Thuý</span></div></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><div class="pair-cell"><span class="name">Lily Cap</span><span class="arrow">↔</span><span class="name">Quỳnh Trần</span></div></td>
+        <td><div class="pair-cell"><span class="name">Hiền Phùng</span><span class="arrow">↔</span><span class="name">Lily Cap</span></div></td>
+        <td><div class="pair-cell"><span class="name">Phạm Khánh Hòa</span><span class="arrow">↔</span><span class="name">Quỳnh Trần</span></div></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><div class="pair-cell"><span class="name">Vũ Văn Thịnh</span><span class="arrow">↔</span><span class="name">Phùng Thị Thuý</span></div></td>
+        <td><div class="pair-cell"><span class="name">Phạm Khánh Hòa</span><span class="arrow">↔</span><span class="name">Lê Oanh</span></div></td>
+        <td><div class="pair-cell"><span class="name">Lily Cap</span><span class="arrow">↔</span><span class="name">Thục Oanh</span></div></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><div class="pair-cell"><span class="name">Liễu anbinh</span><span class="arrow">↔</span><span class="name">Thục Oanh</span></div></td>
+        <td><div class="pair-cell"><span class="name">Tiểu Phàm</span><span class="arrow">↔</span><span class="name">Thu Hà</span></div></td>
+        <td><div class="pair-cell"><span class="name">Vũ Văn Thịnh</span><span class="arrow">↔</span><span class="name">Tiểu Phàm</span></div></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><div class="pair-cell"><span class="name">Thu Hà</span><span class="arrow">↔</span><span class="name">Nguyễn Phượng</span></div></td>
+        <td><div class="pair-cell"><span class="name">Quỳnh Trần</span><span class="arrow">↔</span><span class="name">Phùng Thị Thuý</span></div></td>
+        <td><div class="pair-cell"><span class="name">Lê Oanh</span><span class="arrow">↔</span><span class="name">Nguyễn Phượng</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>✦ &nbsp;Không lặp cặp trong cả 3 tuần &nbsp;·&nbsp; 24 cuộc gọi tổng cộng&nbsp; ✦</footer>
+</div>
+</body>
+</html>

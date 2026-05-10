@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Intensive Club 20</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #141414;
+    --surface2: #1C1C1C;
+    --gold: #F5C518;
+    --gold2: #E6A800;
+    --white: #FFFFFF;
+    --muted: #888888;
+    --border: #2A2A2A;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Barlow', sans-serif;
+    color: var(--white);
+    overflow-x: hidden;
+    max-width: 430px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px;
+    z-index: 200;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.2rem;
+    height: 56px;
+  }
+
+  .logo { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; }
+  .logo-box {
+    background: var(--gold); color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 0.95rem;
+    padding: 0.18rem 0.5rem; border-radius: 3px; letter-spacing: 0.04em;
+  }
+  .logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 0.08em; color: var(--white); text-transform: uppercase;
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: flex; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 6px; background: none; border: none;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--white); border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── DRAWER MENU ── */
+  .drawer {
+    position: fixed; top: 56px; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px; z-index: 190;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .drawer.open { max-height: 300px; }
+  .drawer-inner { padding: 1.2rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.2rem; }
+  .drawer-link {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.85rem 0; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .drawer-link:last-child { border-bottom: none; }
+  .drawer-link:hover, .drawer-link:active { color: var(--gold); }
+  .drawer-link-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 1.4rem 3rem;
+    min-height: 100svh;
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -10%; right: -30%;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,197,24,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '20'; position: absolute; right: -0.5rem; bottom: 3rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 11rem; color: rgba(245,197,24,0.04);
+    line-height: 1; pointer-events: none; user-select: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(245,197,24,0.1); border: 1px solid rgba(245,197,24,0.3);
+    color: var(--gold); font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.35rem 0.8rem; border-radius: 100px; margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  .hero-greeting {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 1.2rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.2rem;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  .hero-name {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: clamp(3.5rem, 18vw, 5.5rem);
+    text-transform: uppercase; line-height: 0.88;
+    color: var(--white); margin-bottom: 1.4rem;
+    animation: fadeUp 0.6s ease 0.28s both;
+  }
+  .hero-name .gold { color: var(--gold); }
+
+  .hero-divider {
+    width: 40px; height: 3px; background: var(--gold);
+    margin-bottom: 1.2rem;
+    animation: fadeUp 0.6s ease 0.34s both;
+  }
+
+  .hero-desc {
+    font-size: 0.88rem; font-weight: 300; line-height: 1.75; color: #CCCCCC;
+    max-width: 320px; margin-bottom: 2.2rem;
+    animation: fadeUp 0.6s ease 0.4s both;
+  }
+
+  /* Stats – horizontal scroll pills */
+  .hero-stats {
+    display: flex; gap: 0.75rem; width: 100%;
+    overflow-x: auto; padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    animation: fadeUp 0.6s ease 0.46s both;
+  }
+  .hero-stats::-webkit-scrollbar { display: none; }
+  .stat-pill {
+    flex-shrink: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.9rem 1.2rem; text-align: center;
+    min-width: 90px;
+  }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 2rem; color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.62rem; font-weight: 400; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-top: 0.25rem;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    animation: bounce 2s ease infinite;
+  }
+  .scroll-hint-line { width: 1px; height: 36px; background: linear-gradient(to bottom, var(--gold), transparent); }
+  .scroll-hint-text { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 3rem 1.4rem; border-top: 1px solid var(--border); }
+
+  .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 2.4rem; text-transform: uppercase; line-height: 0.95;
+    color: var(--white); margin-bottom: 1rem;
+  }
+  .section-desc { font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: var(--muted); }
+
+  /* ── PHOTO SECTION ── */
+  .photo-card {
+    margin-top: 1.5rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    border-left: 3px solid var(--gold);
+  }
+  .photo-placeholder {
+    min-height: 220px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.6rem;
+    background: #111;
+  }
+  .photo-icon { font-size: 3rem; opacity: 0.3; }
+  .photo-hint { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
+  .photo-sub { font-size: 0.7rem; color: var(--muted); opacity: 0.35; }
+  .photo-caption {
+    padding: 0.9rem 1.2rem; display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+  .photo-cap-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .photo-cap-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--gold); }
+
+  /* ── MEMBERS ── */
+  /* Leader cards – horizontal scroll */
+  .leaders-scroll {
+    display: flex; gap: 0.75rem; overflow-x: auto;
+    padding: 1.2rem 0 0.5rem;
+    scrollbar-width: none;
+  }
+  .leaders-scroll::-webkit-scrollbar { display: none; }
+
+  .leader-chip {
+    flex-shrink: 0; width: 120px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.1rem 0.8rem;
+    text-align: center; transition: transform 0.15s;
+    -webkit-user-select: none;
+  }
+  .leader-chip:active { transform: scale(0.96); }
+  .leader-chip.head { border-color: var(--gold); background: rgba(245,197,24,0.07); }
+
+  .chip-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    margin: 0 auto 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem;
+    background: var(--border); color: var(--muted);
+  }
+  .chip-avatar.gold { background: var(--gold); color: #000; }
+  .chip-avatar.ring { border: 2px solid var(--gold); background: transparent; color: var(--gold); }
+
+  .chip-name {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--white); margin-bottom: 0.25rem; line-height: 1.2;
+  }
+  .chip-role { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+
+  /* Groups accordion */
+  .groups-list { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.5rem; }
+
+  .group-accordion {
+    border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+  }
+  .group-acc-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 1.1rem; background: var(--surface);
+    cursor: pointer; user-select: none;
+    -webkit-user-select: none;
+    transition: background 0.15s;
+  }
+  .group-acc-header:active { background: var(--surface2); }
+
+  .group-acc-left { display: flex; align-items: center; gap: 0.7rem; }
+  .group-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .group-acc-name {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+    font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+  }
+  .group-count {
+    background: rgba(245,197,24,0.15); color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem;
+    letter-spacing: 0.05em; padding: 0.15rem 0.5rem; border-radius: 100px;
+  }
+  .group-chevron {
+    font-size: 0.75rem; color: var(--muted);
+    transition: transform 0.3s ease;
+  }
+  .group-accordion.open .group-chevron { transform: rotate(180deg); }
+
+  .group-acc-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .group-accordion.open .group-acc-body { max-height: 400px; }
+
+  .member-item {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: 0.75rem 1.1rem; border-top: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .member-item:active { background: var(--surface); }
+  .mi-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--surface2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 0.7rem; color: var(--muted); flex-shrink: 0;
+  }
+  .mi-name { font-size: 0.87rem; font-weight: 500; color: var(--white); }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    padding-bottom: var(--safe-bottom);
+    z-index: 100;
+  }
+  .bn-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.25rem; padding: 0.75rem 0.5rem;
+    text-decoration: none; color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+    cursor: pointer; border: none; background: none;
+  }
+  .bn-item.active { color: var(--gold); }
+  .bn-item:active { opacity: 0.7; }
+  .bn-icon { font-size: 1.25rem; line-height: 1; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 1.4rem calc(5rem + var(--safe-bottom));
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    text-align: center;
+  }
+  .footer-logo { display: flex; align-items: center; justify-content: center; gap: 0.55rem; margin-bottom: 0.8rem; }
+  .footer-copy { font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
+  .footer-copy span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="logo" href="#">
+    <span class="logo-box">IC</span>
+    <span class="logo-text">Intensive Club 20</span>
+  </a>
+  <button class="hamburger" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-inner">
+    <a class="drawer-link" href="#hero" onclick="closeMenu()">
+      <span class="drawer-link-icon">🏠</span> Trang Chủ
+    </a>
+    <a class="drawer-link" href="#about" onclick="closeMenu()">
+      <span class="drawer-link-icon">📸</span> Giới Thiệu
+    </a>
+    <a class="drawer-link" href="#members" onclick="closeMenu()">
+      <span class="drawer-link-icon">👥</span> Thành Viên
+    </a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-badge">✦ Cộng đồng học tập · 2025</div>
+  <div class="hero-greeting">Chào mừng đến với</div>
+  <div class="hero-name">
+    Intensive<br><span class="gold">Club</span><br>20
+  </div>
+  <div class="hero-divider"></div>
+  <p class="hero-desc">
+    Cùng nhau học tập, kết nối và phát triển. Mỗi tuần một cuộc gọi — mỗi tuần một bước tiến mới.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-pill">
+      <div class="stat-num">17</div>
+      <div class="stat-label">Thành viên</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Nhóm nhỏ</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Tuần h/đ</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num">2025</div>
+      <div class="stat-label">Năm học</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
+    <div class="scroll-hint-text">Kéo xuống</div>
+  </div>
+</section>
+
+<!-- ABOUT / PHOTO -->
+<section class="section" id="about">
+  <div class="section-eyebrow">✦ Về chúng tôi</div>
+  <div class="section-title">Ảnh<br>Nhóm</div>
+  <p class="section-desc">Nơi lưu giữ những khoảnh khắc đáng nhớ của Intensive Club 20. Ảnh nhóm sẽ được cập nhật sớm.</p>
+  <div class="photo-card">
+    <div class="photo-placeholder">
+      <img src="\Image\test1.jpg" style="width:100%;display:block;object-fit:cover;max-height:320px;">
+    </div>
+    <div class="photo-caption">
+      <div>
+        <div class="photo-cap-label">Intensive Club 20</div>
+        <div class="photo-cap-val">19 thành viên</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section class="section" id="members">
+  <div class="section-eyebrow">✦ Danh sách</div>
+  <div class="section-title">Thành<br>Viên</div>
+  <p class="section-desc">17 thành viên · 1 Trưởng nhóm · 4 Phó nhóm</p>
+
+  <!-- Leaders scroll -->
+  <div class="leaders-scroll">
+    <div class="leader-chip head">
+      <div class="chip-avatar gold">NL</div>
+      <div class="chip-name">Nhật Linh</div>
+      <div class="chip-role">⭐ Trưởng Nhóm</div>
+    </div>
+    <div class="leader-chip">
+      <div class="chip-avatar ring">PH</div>
+      <div class="chip-name">Phùng Hiền</div>
+      <div class="chip-role">Phó 20.1</div>
+    </div>
+    <div class="leader-chip">
+      <div class="chip-avatar ring">KH</div>
+      <div class="chip-name">P. Khánh Hòa</div>
+      <div class="chip-role">Phó 20.2</div>
+    </div>
+    <div class="leader-chip">
+      <div class="chip-avatar ring">TL</div>
+      <div class="chip-name">Cáp Thị Lý</div>
+      <div class="chip-role">Phó 20.3</div>
+    </div>
+    <div class="leader-chip">
+      <div class="chip-avatar ring">NP</div>
+      <div class="chip-name">N. Phượng</div>
+      <div class="chip-role">Phó 20.4</div>
+    </div>
+  </div>
+
+  <!-- Groups accordion -->
+  <div class="groups-list">
+
+    <div class="group-accordion open" id="g1">
+      <div class="group-acc-header" onclick="toggleGroup('g1')">
+        <div class="group-acc-left">
+          <div class="group-dot"></div>
+          <div class="group-acc-name">Nhóm 20.1</div>
+          <div class="group-count">4 thành viên</div>
+        </div>
+        <div class="group-chevron">▼</div>
+      </div>
+      <div class="group-acc-body">
+        <div class="member-item"><div class="mi-avatar">PL</div><div class="mi-name">Phương Lê</div></div>
+        <div class="member-item"><div class="mi-avatar">BT</div><div class="mi-name">Bảo Phương Thuy Nguyễn</div></div>
+        <div class="member-item"><div class="mi-avatar">SH</div><div class="mi-name">Sầm Văn Hòa</div></div>
+        <div class="member-item"><div class="mi-avatar">NQ</div><div class="mi-name">Trần Như Quỳnh</div></div>
+      </div>
+    </div>
+
+    <div class="group-accordion" id="g2">
+      <div class="group-acc-header" onclick="toggleGroup('g2')">
+        <div class="group-acc-left">
+          <div class="group-dot"></div>
+          <div class="group-acc-name">Nhóm 20.2</div>
+          <div class="group-count">3 thành viên</div>
+        </div>
+        <div class="group-chevron">▼</div>
+      </div>
+      <div class="group-acc-body">
+        <div class="member-item"><div class="mi-avatar">KT</div><div class="mi-name">Trần Thị Kim Tú</div></div>
+        <div class="member-item"><div class="mi-avatar">TC</div><div class="mi-name">Trang Chung</div></div>
+        <div class="member-item"><div class="mi-avatar">VT</div><div class="mi-name">Vũ Văn Thịnh</div></div>
+      </div>
+    </div>
+
+    <div class="group-accordion" id="g3">
+      <div class="group-acc-header" onclick="toggleGroup('g3')">
+        <div class="group-acc-left">
+          <div class="group-dot"></div>
+          <div class="group-acc-name">Nhóm 20.3</div>
+          <div class="group-count">3 thành viên</div>
+        </div>
+        <div class="group-chevron">▼</div>
+      </div>
+      <div class="group-acc-body">
+        <div class="member-item"><div class="mi-avatar">LL</div><div class="mi-name">Lương Thị Liễu</div></div>
+        <div class="member-item"><div class="mi-avatar">TN</div><div class="mi-name">Thanh Ngân</div></div>
+        <div class="member-item"><div class="mi-avatar">PT</div><div class="mi-name">Phùng Thị Thuý</div></div>
+      </div>
+    </div>
+
+    <div class="group-accordion" id="g4">
+      <div class="group-acc-header" onclick="toggleGroup('g4')">
+        <div class="group-acc-left">
+          <div class="group-dot"></div>
+          <div class="group-acc-name">Nhóm 20.4</div>
+          <div class="group-count">3 thành viên</div>
+        </div>
+        <div class="group-chevron">▼</div>
+      </div>
+      <div class="group-acc-body">
+        <div class="member-item"><div class="mi-avatar">LA</div><div class="mi-name">Phạm Thị Lan Anh</div></div>
+        <div class="member-item"><div class="mi-avatar">NO</div><div class="mi-name">Nguyễn Thị Oanh</div></div>
+        <div class="member-item"><div class="mi-avatar">QT</div><div class="mi-name">Trần Quang Trung</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span class="logo-box">IC</span>
+    <span class="logo-text">Intensive Club 20</span>
+  </div>
+  <div class="footer-copy">
+    © 2025 <span>Intensive Club 20</span><br>
+    17 thành viên · 4 nhóm nhỏ
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bn-item active" href="#hero">
+    <span class="bn-icon">🏠</span>
+    Trang Chủ
+  </a>
+  <a class="bn-item" href="#about">
+    <span class="bn-icon">📸</span>
+    Giới Thiệu
+  </a>
+  <a class="bn-item" href="#members">
+    <span class="bn-icon">👥</span>
+    Thành Viên
+  </a>
+</nav>
+
+<script>
+  // Hamburger menu
+  const menuBtn = document.getElementById('menuBtn');
+  const drawer  = document.getElementById('drawer');
+  let menuOpen  = false;
+
+  menuBtn.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    menuBtn.classList.toggle('open', menuOpen);
+    drawer.classList.toggle('open', menuOpen);
+  });
+
+  function closeMenu() {
+    menuOpen = false;
+    menuBtn.classList.remove('open');
+    drawer.classList.remove('open');
+  }
+
+  // Close drawer when clicking outside
+  document.addEventListener('click', (e) => {
+    if (menuOpen && !menuBtn.contains(e.target) && !drawer.contains(e.target)) closeMenu();
+  });
+
+  // Group accordion
+  function toggleGroup(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+
+  // Bottom nav active state on scroll
+  const sections = ['hero', 'about', 'members'];
+  const bnItems = document.querySelectorAll('.bn-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        bnItems.forEach(item => {
+          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+</body>
+</html>
